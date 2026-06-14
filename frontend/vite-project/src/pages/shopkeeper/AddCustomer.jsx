@@ -25,55 +25,68 @@ export default function AddCustomer() {
     setLoading(false)
   }
 
-  const inputCls = 'w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 focus:bg-white transition'
+  const inputCls = 'w-full bg-zinc-800 border border-zinc-700 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition'
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-6">
-      <div className="max-w-lg mx-auto">
-        <button onClick={() => navigate('/shopkeeper/customers')}
-          className="text-sm text-gray-500 hover:text-gray-700 mb-5 flex items-center gap-1">← Back</button>
+    <div className="min-h-screen bg-[#0f0d0b] p-5 flex items-start justify-center">
+      <div className="w-full max-w-lg pt-4">
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-xl">👤</div>
-            <h1 className="text-xl font-bold text-gray-900">Add New Customer</h1>
+        <button onClick={() => navigate('/shopkeeper/customers')}
+          className="text-zinc-500 hover:text-amber-400 text-sm mb-6 flex items-center gap-1.5 transition font-medium">
+          ← Back
+        </button>
+
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-7">
+          <div className="flex items-center gap-3 mb-7">
+            <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-xl">👤</div>
+            <div>
+              <h1 className="text-xl font-black text-white">Add New Customer</h1>
+              <p className="text-xs text-zinc-500 mt-0.5">Create a credit account</p>
+            </div>
           </div>
 
-          {error && <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-4 text-sm">{error}</div>}
+          {error && (
+            <div className="bg-rose-500/10 border border-rose-500/30 text-rose-400 px-4 py-3 rounded-xl mb-5 text-sm flex items-center gap-2">
+              <span>⚠️</span> {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {[
-              { label: 'Name *', name: 'name', type: 'text', placeholder: 'Customer name', required: true },
-              { label: 'Mobile *', name: 'mobile', type: 'tel', placeholder: '10-digit mobile', maxLength: 10, required: true },
+              { label: 'Full Name', name: 'name', type: 'text', placeholder: 'Customer name', required: true },
+              { label: 'Mobile Number', name: 'mobile', type: 'tel', placeholder: '10-digit number', maxLength: 10, required: true },
               { label: 'Email', name: 'email', type: 'email', placeholder: 'customer@email.com' },
-              { label: 'Address', name: 'address', type: 'text', placeholder: 'Customer address' },
+              { label: 'Address', name: 'address', type: 'text', placeholder: 'Street, Area' },
             ].map(({ label, ...props }) => (
               <div key={props.name}>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">{label}</label>
+                <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1.5">{label}</label>
                 <input {...props} value={formData[props.name]} onChange={handleChange} className={inputCls} />
               </div>
             ))}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Opening Balance (₹)</label>
+              <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1.5">Opening Balance (₹)</label>
               <input type="number" name="openingBalance" value={formData.openingBalance}
                 onChange={handleChange} placeholder="0" min="0" className={inputCls} />
-              <p className="text-xs text-gray-400 mt-1">Amount customer already owes before using this app</p>
+              <p className="text-xs text-zinc-600 mt-1.5">Amount owed before using this app</p>
             </div>
 
-            <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl hover:bg-gray-50 transition">
+            <label className="flex items-center gap-3 cursor-pointer p-3.5 rounded-xl border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-800/40 transition">
+              <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition ${formData.sendNotification ? 'bg-amber-500 border-amber-500' : 'border-zinc-600'}`}>
+                {formData.sendNotification && <span className="text-black text-xs font-black">✓</span>}
+              </div>
               <input type="checkbox" name="sendNotification" checked={formData.sendNotification}
-                onChange={handleChange} className="w-4 h-4 text-blue-600 rounded" />
-              <span className="text-sm text-gray-700">Send welcome email to customer</span>
+                onChange={handleChange} className="hidden" />
+              <span className="text-sm text-zinc-300">Send welcome email to customer</span>
             </label>
 
             <div className="flex gap-3 pt-2">
               <button type="button" onClick={() => navigate('/shopkeeper/customers')}
-                className="flex-1 border border-gray-200 text-gray-600 font-medium py-2.5 rounded-xl hover:bg-gray-50 transition">
+                className="flex-1 border border-zinc-700 text-zinc-400 font-bold py-3 rounded-xl hover:bg-zinc-800 transition text-sm">
                 Cancel
               </button>
               <button type="submit" disabled={loading}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-xl transition shadow-sm hover:shadow-md disabled:opacity-60">
+                className="flex-1 bg-amber-500 hover:bg-amber-400 disabled:bg-amber-500/40 text-black font-black py-3 rounded-xl transition shadow-lg shadow-amber-900/30 text-sm">
                 {loading ? 'Adding...' : 'Add Customer'}
               </button>
             </div>

@@ -1,17 +1,22 @@
-// File: backend/config/emailConfig.js
 import nodemailer from 'nodemailer'
 import { config } from 'dotenv'
 config() // Load environment variables from .env file
 
-// Create transporter using Gmail
-export const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,     
-    pass: process.env.EMAIL_PASSWORD     
-  }
-})
 
+let transporter =null
+// Create transporter using Gmail
+if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+  transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD
+    }
+  })
+  console.log('✅ Email configured')
+} else {
+  console.log('⚠️ Email credentials missing - email disabled')
+}
 // Verify connection on startup
 transporter.verify((error, success) => {
   if (error) {
@@ -25,6 +30,11 @@ transporter.verify((error, success) => {
 // Main function to send emails
 export const sendEmail = async (to, subject, html) => {
   try {
+
+    if (!transporter) {
+    console.log(' Email skipped - no transporter')
+    return null
+  }
     // Validate inputs
     if (!to || !subject || !html) {
       throw new Error('Email requires: to, subject, and html')
@@ -69,3 +79,4 @@ export const sendEmailWithAttachment = async (to, subject, html, attachments = [
     return { success: false, error: error.message }
   }
 }
+export default transporter

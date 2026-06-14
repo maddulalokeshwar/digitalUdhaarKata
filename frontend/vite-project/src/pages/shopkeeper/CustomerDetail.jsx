@@ -60,76 +60,80 @@ export default function CustomerDetail() {
   }
 
   if (loading) return (
-    <div className="flex items-center justify-center h-64">
-      <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full" />
+    <div className="min-h-screen bg-[#0f0d0b] flex items-center justify-center">
+      <div className="w-10 h-10 rounded-full border-4 border-amber-500 border-t-transparent animate-spin" />
     </div>
   )
-  if (!customer) return <div className="p-6 text-center text-gray-400">Customer not found</div>
+  if (!customer) return (
+    <div className="min-h-screen bg-[#0f0d0b] flex items-center justify-center text-zinc-500">Customer not found</div>
+  )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-6">
+    <div className="min-h-screen bg-[#0f0d0b] p-5">
       <div className="max-w-4xl mx-auto">
+
         <button onClick={() => navigate('/shopkeeper/customers')}
-          className="text-sm text-gray-500 hover:text-gray-700 mb-5 flex items-center gap-1 hover:gap-2 transition-all">
+          className="text-zinc-500 hover:text-amber-400 text-sm mb-6 flex items-center gap-1.5 transition font-medium">
           ← Back to Customers
         </button>
 
-        {/* Header */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-          <div className="flex items-start justify-between">
+        {/* Header card */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 mb-4 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+          <div className="flex items-start justify-between gap-4 relative">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-black text-2xl font-black shadow-xl shadow-amber-900/30">
                 {customer.name.charAt(0).toUpperCase()}
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">{customer.name}</h1>
-                <p className="text-sm text-gray-500 mt-0.5">📱 {customer.mobile}</p>
-                {customer.email && <p className="text-sm text-gray-400">✉️ {customer.email}</p>}
-                {customer.address && <p className="text-sm text-gray-400">📍 {customer.address}</p>}
+                <h1 className="text-2xl font-black text-white">{customer.name}</h1>
+                <p className="text-sm text-zinc-400 mt-0.5 font-mono">📱 {customer.mobile}</p>
+                {customer.email && <p className="text-sm text-zinc-500">✉️ {customer.email}</p>}
+                {customer.address && <p className="text-sm text-zinc-500">📍 {customer.address}</p>}
               </div>
             </div>
             <div className="flex gap-2 flex-wrap justify-end">
               <Link to={`/shopkeeper/add-transaction?customer=${id}`}
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium px-3 py-2 rounded-lg transition shadow-sm">
+                className="bg-orange-500/10 hover:bg-orange-500 border border-orange-500/30 hover:border-orange-500 text-orange-400 hover:text-black text-xs font-bold px-3 py-2 rounded-xl transition">
                 + Transaction
               </Link>
               <Link to={`/shopkeeper/record-payment?customer=${id}`}
-                className="bg-green-500 hover:bg-green-600 text-white text-xs font-medium px-3 py-2 rounded-lg transition shadow-sm">
+                className="bg-emerald-500/10 hover:bg-emerald-500 border border-emerald-500/30 hover:border-emerald-500 text-emerald-400 hover:text-black text-xs font-bold px-3 py-2 rounded-xl transition">
                 + Payment
               </Link>
               <Link to={`/shopkeeper/reminders?customer=${id}`}
-                className="bg-purple-500 hover:bg-purple-600 text-white text-xs font-medium px-3 py-2 rounded-lg transition shadow-sm">
+                className="bg-violet-500/10 hover:bg-violet-500 border border-violet-500/30 hover:border-violet-500 text-violet-400 hover:text-black text-xs font-bold px-3 py-2 rounded-xl transition">
                 🔔 Remind
               </Link>
               <button onClick={handleDelete}
-                className="border border-red-200 text-red-500 hover:bg-red-50 text-xs font-medium px-3 py-2 rounded-lg transition">
+                className="bg-transparent border border-zinc-700 text-zinc-500 hover:text-rose-400 hover:border-rose-500/40 text-xs font-bold px-3 py-2 rounded-xl transition">
                 Deactivate
               </button>
             </div>
           </div>
         </div>
 
-        {/* Balance Cards */}
+        {/* Balance cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
           {[
-            { label: 'Opening Balance', value: balance?.openingBalance, color: 'from-gray-400 to-gray-500' },
-            { label: 'Total Credit', value: balance?.totalCredit, color: 'from-orange-400 to-orange-500' },
-            { label: 'Total Paid', value: balance?.totalDebit, color: 'from-green-400 to-green-500' },
-            { label: 'Outstanding', value: balance?.outstanding, color: balance?.outstanding > 0 ? 'from-red-500 to-red-600' : 'from-green-500 to-green-600' },
-          ].map(({ label, value, color }) => (
-            <div key={label} className={`bg-gradient-to-br ${color} rounded-xl p-4 shadow-sm`}>
-              <p className="text-xs text-white/80 mb-1">{label}</p>
-              <p className="text-lg font-bold text-white">{formatCurrency(value)}</p>
+            { label: 'Opening', value: balance?.openingBalance, accent: 'border-zinc-700', text: 'text-zinc-300', bg: 'bg-zinc-900' },
+            { label: 'Total Credit', value: balance?.totalCredit, accent: 'border-orange-500/30', text: 'text-orange-400', bg: 'bg-orange-500/5' },
+            { label: 'Total Paid', value: balance?.totalDebit, accent: 'border-emerald-500/30', text: 'text-emerald-400', bg: 'bg-emerald-500/5' },
+            { label: 'Outstanding', value: balance?.outstanding, accent: balance?.outstanding > 0 ? 'border-rose-500/40' : 'border-emerald-500/30', text: balance?.outstanding > 0 ? 'text-rose-400' : 'text-emerald-400', bg: balance?.outstanding > 0 ? 'bg-rose-500/5' : 'bg-emerald-500/5' },
+          ].map(({ label, value, accent, text, bg }) => (
+            <div key={label} className={`${bg} border ${accent} rounded-2xl p-4`}>
+              <p className="text-xs text-zinc-500 font-semibold uppercase tracking-widest mb-2">{label}</p>
+              <p className={`text-xl font-black ${text}`}>{formatCurrency(value)}</p>
             </div>
           ))}
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="flex border-b border-gray-100">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+          <div className="flex border-b border-zinc-800">
             {['transactions', 'payments'].map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`flex-1 py-3.5 text-sm font-semibold transition ${activeTab === tab ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50' : 'text-gray-400 hover:text-gray-600'}`}>
+                className={`flex-1 py-4 text-sm font-bold transition ${activeTab === tab ? 'text-amber-400 border-b-2 border-amber-500 bg-amber-500/5' : 'text-zinc-500 hover:text-zinc-300'}`}>
                 {tab === 'transactions' ? `📋 Transactions (${transactions.length})` : `💰 Payments (${payments.length})`}
               </button>
             ))}
@@ -138,40 +142,40 @@ export default function CustomerDetail() {
           <div className="p-5">
             {activeTab === 'transactions' && (
               transactions.length === 0 ? (
-                <div className="text-center py-12">
-                  <p className="text-3xl mb-2">📋</p>
-                  <p className="text-gray-400 text-sm">No transactions yet</p>
+                <div className="text-center py-14">
+                  <p className="text-4xl mb-3">📋</p>
+                  <p className="text-zinc-500 text-sm">No transactions yet</p>
                 </div>
               ) : (
                 <div className="space-y-2">
                   {transactions.map(t => (
-                    <div key={t._id} className="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:bg-gray-50 hover:border-gray-200 transition">
+                    <div key={t._id} className="flex items-center justify-between p-4 rounded-xl border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-800/40 transition">
                       <div className="flex items-center gap-3">
-                        <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${t.type === 'credit' ? 'bg-red-400' : 'bg-green-400'}`} />
+                        <div className={`w-1.5 h-10 rounded-full flex-shrink-0 ${t.type === 'credit' ? 'bg-rose-500' : 'bg-emerald-500'}`} />
                         <div>
-                          <div className="flex items-center gap-2 mb-0.5">
-                            <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${t.type === 'credit' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}>
-                              {t.type === 'credit' ? 'Given' : 'Paid'}
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className={`text-xs px-2 py-0.5 rounded-md font-bold ${t.type === 'credit' ? 'bg-rose-500/15 text-rose-400' : 'bg-emerald-500/15 text-emerald-400'}`}>
+                              {t.type === 'credit' ? 'Gave' : 'Received'}
                             </span>
-                            {t.isSettled && <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">✓ Settled</span>}
+                            {t.isSettled && <span className="text-xs px-2 py-0.5 rounded-md bg-zinc-700 text-zinc-400">✓ Settled</span>}
                           </div>
-                          <p className="text-sm text-gray-700">{t.description || 'No description'}</p>
-                          <p className="text-xs text-gray-400">{formatDate(t.date)}{t.dueDate ? ` · Due: ${formatDate(t.dueDate)}` : ''}</p>
+                          <p className="text-sm text-zinc-300 font-medium">{t.description || 'No description'}</p>
+                          <p className="text-xs text-zinc-600 mt-0.5">{formatDate(t.date)}{t.dueDate ? ` · Due: ${formatDate(t.dueDate)}` : ''}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className={`font-bold text-sm px-3 py-1 rounded-full ${t.type === 'credit' ? 'text-red-600 bg-red-50' : 'text-green-600 bg-green-50'}`}>
+                      <div className="flex items-center gap-2">
+                        <span className={`font-black text-sm px-3 py-1.5 rounded-lg ${t.type === 'credit' ? 'text-rose-400 bg-rose-500/10' : 'text-emerald-400 bg-emerald-500/10'}`}>
                           {formatCurrency(t.amount)}
                         </span>
                         {!t.isSettled && t.type === 'credit' && (
                           <button onClick={() => handleSettle(t._id)}
-                            className="text-xs text-blue-600 hover:text-blue-700 font-semibold bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition">
+                            className="text-xs text-amber-400 hover:text-black hover:bg-amber-400 border border-amber-500/30 hover:border-amber-400 font-bold px-2.5 py-1.5 rounded-lg transition">
                             Settle
                           </button>
                         )}
                         {!t.isSettled && (
                           <button onClick={() => handleDeleteTx(t._id)}
-                            className="text-xs text-red-400 hover:text-red-600 hover:bg-red-50 w-7 h-7 rounded-lg flex items-center justify-center transition">✕</button>
+                            className="text-zinc-600 hover:text-rose-400 hover:bg-rose-500/10 w-7 h-7 rounded-lg flex items-center justify-center transition text-xs">✕</button>
                         )}
                       </div>
                     </div>
@@ -182,28 +186,28 @@ export default function CustomerDetail() {
 
             {activeTab === 'payments' && (
               payments.length === 0 ? (
-                <div className="text-center py-12">
-                  <p className="text-3xl mb-2">💰</p>
-                  <p className="text-gray-400 text-sm">No payments recorded</p>
+                <div className="text-center py-14">
+                  <p className="text-4xl mb-3">💰</p>
+                  <p className="text-zinc-500 text-sm">No payments recorded</p>
                 </div>
               ) : (
                 <div className="space-y-2">
                   {payments.map(p => (
-                    <div key={p._id} className="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
+                    <div key={p._id} className="flex items-center justify-between p-4 rounded-xl border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-800/40 transition">
                       <div className="flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center text-base">
+                        <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-lg">
                           {p.paymentMethod === 'cash' ? '💵' : p.paymentMethod === 'upi' ? '📲' : '🏦'}
-                        </span>
+                        </div>
                         <div>
-                          <p className="text-sm font-semibold text-gray-700 capitalize">{p.paymentMethod}</p>
-                          <p className="text-xs text-gray-400">{formatDate(p.paymentDate)}{p.referenceNumber ? ` · Ref: ${p.referenceNumber}` : ''}</p>
-                          {p.note && <p className="text-xs text-gray-400 italic">{p.note}</p>}
+                          <p className="text-sm font-bold text-zinc-200 capitalize">{p.paymentMethod}</p>
+                          <p className="text-xs text-zinc-500 mt-0.5">{formatDate(p.paymentDate)}{p.referenceNumber ? ` · Ref: ${p.referenceNumber}` : ''}</p>
+                          {p.note && <p className="text-xs text-zinc-600 italic">{p.note}</p>}
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className="font-bold text-sm text-green-600 bg-green-50 px-3 py-1 rounded-full">{formatCurrency(p.amount)}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="font-black text-sm text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-lg">{formatCurrency(p.amount)}</span>
                         <button onClick={() => handleDeletePayment(p._id)}
-                          className="text-xs text-red-400 hover:text-red-600 hover:bg-red-50 w-7 h-7 rounded-lg flex items-center justify-center transition">✕</button>
+                          className="text-zinc-600 hover:text-rose-400 hover:bg-rose-500/10 w-7 h-7 rounded-lg flex items-center justify-center transition text-xs">✕</button>
                       </div>
                     </div>
                   ))}

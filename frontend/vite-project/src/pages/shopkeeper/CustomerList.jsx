@@ -30,74 +30,92 @@ export default function CustomerList() {
 
   const totalPages = Math.ceil(total / limit)
 
+  const avatarColors = [
+    'from-amber-400 to-orange-500',
+    'from-rose-400 to-pink-600',
+    'from-violet-400 to-purple-600',
+    'from-teal-400 to-emerald-500',
+    'from-sky-400 to-blue-600',
+  ]
+  const getColor = (name) => avatarColors[name.charCodeAt(0) % avatarColors.length]
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-6">
+    <div className="min-h-screen bg-[#0f0d0b] p-5">
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-7">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Customers</h1>
-            <p className="text-sm text-gray-500 mt-0.5">{total} total</p>
+            <p className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-1">Udhaar Khata</p>
+            <h1 className="text-3xl font-black text-white">Customers</h1>
+            <p className="text-zinc-500 text-sm mt-0.5">{total} accounts</p>
           </div>
           <Link to="/shopkeeper/add-customer"
-            className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-all">
-            + Add Customer
+            className="bg-amber-500 hover:bg-amber-400 text-black text-sm font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-amber-900/40 hover:shadow-amber-800/60 transition-all flex items-center gap-2">
+            <span className="text-base">+</span> Add Customer
           </Link>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-4">
-          <input type="text" value={search}
-            onChange={e => { setSearch(e.target.value); setPage(1) }}
-            placeholder="Search by name or mobile..."
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" />
+        {/* Search */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-3 mb-4">
+          <div className="relative">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">🔍</span>
+            <input type="text" value={search}
+              onChange={e => { setSearch(e.target.value); setPage(1) }}
+              placeholder="Search by name or mobile..."
+              className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-500 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 transition" />
+          </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        {/* Table card */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
           {loading ? (
-            <div className="flex items-center justify-center py-16">
-              <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full" />
+            <div className="flex items-center justify-center py-20">
+              <div className="w-9 h-9 rounded-full border-4 border-amber-500 border-t-transparent animate-spin" />
             </div>
           ) : customers.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-4xl mb-3">👥</p>
-              <p className="text-gray-500 text-sm mb-3">No customers found</p>
-              <Link to="/shopkeeper/add-customer" className="text-blue-600 text-sm font-medium hover:underline">Add your first customer →</Link>
+            <div className="text-center py-20">
+              <p className="text-5xl mb-4">👥</p>
+              <p className="text-zinc-400 text-sm mb-4">No customers yet</p>
+              <Link to="/shopkeeper/add-customer" className="text-amber-500 text-sm font-bold hover:text-amber-400 transition">Add first customer →</Link>
             </div>
           ) : (
             <>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-gray-50 border-b border-gray-100">
-                      <th className="text-left px-5 py-3.5 text-gray-500 font-semibold text-xs uppercase tracking-wide">Customer</th>
-                      <th className="text-left px-5 py-3.5 text-gray-500 font-semibold text-xs uppercase tracking-wide">Mobile</th>
-                      <th className="text-right px-5 py-3.5 text-gray-500 font-semibold text-xs uppercase tracking-wide">Balance</th>
-                      <th className="text-right px-5 py-3.5 text-gray-500 font-semibold text-xs uppercase tracking-wide"></th>
+                    <tr className="border-b border-zinc-800">
+                      <th className="text-left px-5 py-4 text-zinc-500 font-semibold text-xs uppercase tracking-widest">Customer</th>
+                      <th className="text-left px-5 py-4 text-zinc-500 font-semibold text-xs uppercase tracking-widest">Mobile</th>
+                      <th className="text-right px-5 py-4 text-zinc-500 font-semibold text-xs uppercase tracking-widest">Balance</th>
+                      <th className="px-5 py-4" />
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50">
-                    {customers.map(c => (
-                      <tr key={c._id} className="hover:bg-blue-50/50 transition cursor-pointer"
-                        onClick={() => navigate(`/shopkeeper/customers/${c._id}`)}>
+                  <tbody>
+                    {customers.map((c, i) => (
+                      <tr key={c._id}
+                        onClick={() => navigate(`/shopkeeper/customers/${c._id}`)}
+                        className="border-b border-zinc-800/60 last:border-0 hover:bg-zinc-800/50 cursor-pointer transition group">
                         <td className="px-5 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                            <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${getColor(c.name)} flex items-center justify-center text-white text-sm font-black flex-shrink-0 shadow-md`}>
                               {c.name.charAt(0).toUpperCase()}
                             </div>
                             <div>
-                              <p className="font-semibold text-gray-800">{c.name}</p>
-                              <p className="text-xs text-gray-400">{c.email || ''}</p>
+                              <p className="font-semibold text-white group-hover:text-amber-400 transition">{c.name}</p>
+                              {c.email && <p className="text-xs text-zinc-500">{c.email}</p>}
                             </div>
                           </div>
                         </td>
-                        <td className="px-5 py-4 text-gray-600">{c.mobile}</td>
+                        <td className="px-5 py-4 text-zinc-400 font-mono text-xs">{c.mobile}</td>
                         <td className="px-5 py-4 text-right">
-                          <span className={`font-bold text-sm px-3 py-1 rounded-full ${c.currentBalance > 0 ? 'text-red-600 bg-red-50' : 'text-green-600 bg-green-50'}`}>
+                          <span className={`font-bold text-sm px-3 py-1.5 rounded-lg ${c.currentBalance > 0 ? 'text-rose-400 bg-rose-500/10 border border-rose-500/20' : 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20'}`}>
                             {formatCurrency(c.currentBalance)}
                           </span>
                         </td>
                         <td className="px-5 py-4 text-right">
                           <button onClick={e => { e.stopPropagation(); navigate(`/shopkeeper/customers/${c._id}`) }}
-                            className="text-blue-600 hover:text-blue-700 text-xs font-semibold bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition">
+                            className="text-amber-500 hover:text-black hover:bg-amber-500 text-xs font-bold px-3 py-1.5 rounded-lg border border-amber-500/40 hover:border-amber-500 transition">
                             View →
                           </button>
                         </td>
@@ -106,15 +124,16 @@ export default function CustomerList() {
                   </tbody>
                 </table>
               </div>
+
               {!debouncedSearch && totalPages > 1 && (
-                <div className="flex items-center justify-between px-5 py-4 border-t border-gray-100">
-                  <p className="text-xs text-gray-400">{total} customers total</p>
+                <div className="flex items-center justify-between px-5 py-4 border-t border-zinc-800">
+                  <p className="text-xs text-zinc-500">{total} customers</p>
                   <div className="flex gap-2 items-center">
                     <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
-                      className="px-3 py-1.5 text-xs border border-gray-200 rounded-lg disabled:opacity-40 hover:bg-gray-50 transition">Prev</button>
-                    <span className="text-xs text-gray-500 px-2">{page} / {totalPages}</span>
+                      className="px-3 py-1.5 text-xs bg-zinc-800 border border-zinc-700 text-zinc-300 rounded-lg disabled:opacity-30 hover:bg-zinc-700 transition">Prev</button>
+                    <span className="text-xs text-zinc-500 px-2 font-mono">{page} / {totalPages}</span>
                     <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}
-                      className="px-3 py-1.5 text-xs border border-gray-200 rounded-lg disabled:opacity-40 hover:bg-gray-50 transition">Next</button>
+                      className="px-3 py-1.5 text-xs bg-zinc-800 border border-zinc-700 text-zinc-300 rounded-lg disabled:opacity-30 hover:bg-zinc-700 transition">Next</button>
                   </div>
                 </div>
               )}
