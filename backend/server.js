@@ -23,7 +23,7 @@ app.use(
       
       if (
         origin.startsWith("http://localhost") ||
-        origin.includes("blog-frontend") && origin.endsWith(".vercel.app")
+        origin.includes("digital-udhaar-kata") && origin.endsWith(".vercel.app")
       ) {
         return callback(null, true);
       }
