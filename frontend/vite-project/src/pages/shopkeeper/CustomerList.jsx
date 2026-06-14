@@ -75,7 +75,6 @@ export default function CustomerList() {
             </div>
           ) : customers.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-5xl mb-4">👥</p>
               <p className="text-zinc-400 text-sm mb-4">No customers yet</p>
               <Link to="/shopkeeper/add-customer" className="text-amber-500 text-sm font-bold hover:text-amber-400 transition">Add first customer →</Link>
             </div>

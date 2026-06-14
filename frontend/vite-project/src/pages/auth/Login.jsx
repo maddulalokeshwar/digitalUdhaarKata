@@ -26,7 +26,7 @@ export default function Login() {
       <div className="w-full max-w-md">
 
         <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-3xl mx-auto mb-4">🏪</div>
+          <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-3xl mx-auto mb-4"></div>
           <p className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-1">Udhaar Khata</p>
           <h1 className="text-3xl font-black text-white">Shopkeeper Login</h1>
           <p className="text-zinc-500 text-sm mt-1">Manage your credit accounts</p>

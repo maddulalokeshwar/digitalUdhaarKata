@@ -2,13 +2,13 @@ import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 
 const links = [
-  { to: '/shopkeeper/dashboard',       label: '🏠 Dashboard' },
-  { to: '/shopkeeper/customers',       label: '👥 Customers' },
-  { to: '/shopkeeper/add-customer',    label: '➕ Add Customer' },
-  { to: '/shopkeeper/add-transaction', label: '📋 Add Transaction' },
-  { to: '/shopkeeper/record-payment',  label: '💰 Record Payment' },
-  { to: '/shopkeeper/reminders',       label: '🔔 Reminders' },
-  { to: '/shopkeeper/profile',         label: '👤 Profile' },
+  { to: '/shopkeeper/dashboard',       label: ' Dashboard' },
+  { to: '/shopkeeper/customers',       label: ' Customers' },
+  { to: '/shopkeeper/add-customer',    label: ' Add Customer' },
+  { to: '/shopkeeper/add-transaction', label: ' Add Transaction' },
+  { to: '/shopkeeper/record-payment',  label: ' Record Payment' },
+  { to: '/shopkeeper/reminders',       label: ' Reminders' },
+  { to: '/shopkeeper/profile',         label: ' Profile' },
 ]
 
 export default function Sidebar() {

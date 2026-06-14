@@ -63,7 +63,6 @@ export default function AddTransaction() {
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-7">
           <div className="flex items-center gap-3 mb-7">
-            <div className="w-11 h-11 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-xl">📋</div>
             <div>
               <h1 className="text-xl font-black text-white">Add Transaction</h1>
               <p className="text-xs text-zinc-500 mt-0.5">Record credit or payment</p>
@@ -117,7 +116,7 @@ export default function AddTransaction() {
             <div>
               <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1.5">Type</label>
               <div className="flex bg-zinc-800 border border-zinc-700 rounded-xl p-1">
-                {[['credit', '🔴 Credit — Gave Goods'], ['debit', '🟢 Debit — Got Payment']].map(([val, label]) => (
+                {[['credit', ' Credit — Gave Goods'], ['debit', ' Debit — Got Payment']].map(([val, label]) => (
                   <button key={val} type="button" onClick={() => setFormData(p => ({ ...p, type: val }))}
                     className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition ${formData.type === val
                       ? val === 'credit' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'

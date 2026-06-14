@@ -49,7 +49,7 @@ export default function CustomerLogin() {
       <div className="w-full max-w-md">
 
         <div className="text-center mb-7">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-orange-200">🧑</div>
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-orange-200"></div>
           <p className="text-orange-500 text-xs font-bold uppercase tracking-widest mb-1">Udhaar Khata</p>
           <h1 className="text-3xl font-black text-gray-900">Customer Login</h1>
           <p className="text-gray-400 text-sm mt-1">View your credit account</p>
@@ -62,7 +62,7 @@ export default function CustomerLogin() {
             {['password', 'otp'].map(t => (
               <button key={t} onClick={() => { setTab(t); setStep(1); setError('') }}
                 className={`flex-1 py-2 text-sm font-bold rounded-lg transition ${tab === t ? 'bg-white shadow text-orange-500 border border-orange-100' : 'text-gray-400'}`}>
-                {t === 'password' ? '🔑 Password' : '📱 OTP'}
+                {t === 'password' ? ' Password' : ' OTP'}
               </button>
             ))}
           </div>
@@ -110,7 +110,7 @@ export default function CustomerLogin() {
               {step === 2 && (
                 <form onSubmit={handleVerifyOtp} className="space-y-4">
                   <div className="bg-orange-50 border border-orange-200 text-orange-600 px-4 py-3 rounded-xl text-sm font-medium">
-                    📧 OTP sent to your registered email
+                     OTP sent to your registered email
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">Enter OTP</label>

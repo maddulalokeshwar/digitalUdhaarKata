@@ -24,7 +24,7 @@ export default function MyPayments() {
       .finally(() => setLoading(false))
   }, [page])
 
-  const methodLabel = { cash: '💵 Cash', upi: '📲 UPI', bank: '🏦 Bank' }
+  const methodLabel = { cash: ' Cash', upi: ' UPI', bank: ' Bank' }
 
   return (
     <div className="p-4 max-w-2xl mx-auto">

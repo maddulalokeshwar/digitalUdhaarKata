@@ -2,7 +2,7 @@ import { formatDate } from '../../utils/formatDate'
 import { formatCurrency } from '../../utils/formatCurrency'
 
 export default function PaymentCard({ payment: p }) {
-  const methodLabel = { cash: '💵 Cash', upi: '📲 UPI', bank: '🏦 Bank' }
+  const methodLabel = { cash: ' Cash', upi: ' UPI', bank: ' Bank' }
   return (
     <div className="bg-white rounded-xl border px-4 py-3 flex items-center justify-between shadow-sm">
       <div>

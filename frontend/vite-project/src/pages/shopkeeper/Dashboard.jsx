@@ -32,10 +32,10 @@ export default function Dashboard() {
   )
 
   const stats = [
-    { label: 'Total Customers', value: summary?.totalCustomers || 0, color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20', icon: '👥' },
-    { label: 'Total Outstanding', value: formatCurrency(summary?.totalOutstanding), color: 'text-rose-400', bg: 'bg-rose-500/10 border-rose-500/20', icon: '📊' },
-    { label: 'This Month Credit', value: formatCurrency(summary?.thisMonth?.credit), color: 'text-orange-400', bg: 'bg-orange-500/10 border-orange-500/20', icon: '📦' },
-    { label: 'This Month Received', value: formatCurrency(summary?.thisMonth?.debit), color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20', icon: '💰' },
+    { label: 'Total Customers', value: summary?.totalCustomers || 0, color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20' },
+    { label: 'Total Outstanding', value: formatCurrency(summary?.totalOutstanding), color: 'text-rose-400', bg: 'bg-rose-500/10 border-rose-500/20' },
+    { label: 'This Month Credit', value: formatCurrency(summary?.thisMonth?.credit), color: 'text-orange-400', bg: 'bg-orange-500/10 border-orange-500/20' },
+    { label: 'This Month Received', value: formatCurrency(summary?.thisMonth?.debit), color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
   ]
 
   return (
@@ -47,7 +47,7 @@ export default function Dashboard() {
           <div>
             <p className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-1">Udhaar Khata</p>
             <h1 className="text-3xl font-black text-white">Dashboard</h1>
-            <p className="text-zinc-500 text-sm mt-0.5">Welcome back 👋</p>
+            <p className="text-zinc-500 text-sm mt-0.5">Welcome back </p>
           </div>
           <div className="flex gap-3">
             <Link to="/shopkeeper/add-customer"
@@ -83,7 +83,6 @@ export default function Dashboard() {
             </div>
             {topDebtors.length === 0 ? (
               <div className="text-center py-10">
-                <p className="text-4xl mb-2">🎉</p>
                 <p className="text-zinc-500 text-sm">No outstanding balances</p>
               </div>
             ) : (
@@ -118,7 +117,6 @@ export default function Dashboard() {
             </div>
             {recent.transactions.length === 0 ? (
               <div className="text-center py-10">
-                <p className="text-4xl mb-2">📋</p>
                 <p className="text-zinc-500 text-sm">No recent transactions</p>
               </div>
             ) : (
@@ -145,10 +143,10 @@ export default function Dashboard() {
         {/* Quick Actions */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
           {[
-            { to: '/shopkeeper/customers', label: '👥 Customers' },
-            { to: '/shopkeeper/add-transaction', label: '📋 Add Transaction' },
-            { to: '/shopkeeper/record-payment', label: '💰 Record Payment' },
-            { to: '/shopkeeper/reminders', label: '🔔 Send Reminder' },
+            { to: '/shopkeeper/customers', label: ' Customers' },
+            { to: '/shopkeeper/add-transaction', label: ' Add Transaction' },
+            { to: '/shopkeeper/record-payment', label: ' Record Payment' },
+            { to: '/shopkeeper/reminders', label: 'Send Reminder' },
           ].map(({ to, label }) => (
             <Link key={to} to={to}
               className="bg-zinc-900 border border-zinc-800 hover:border-amber-500/40 hover:bg-zinc-800 text-zinc-300 hover:text-amber-400 text-sm font-bold text-center px-4 py-3 rounded-xl transition">

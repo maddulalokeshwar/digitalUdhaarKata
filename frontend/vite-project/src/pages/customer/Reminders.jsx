@@ -14,7 +14,7 @@ export default function Reminders() {
       .finally(() => setLoading(false))
   }, [])
 
-  const typeIcon = { email: '📧', push: '🔔' }
+  const typeIcon = { email: 'Email', push: 'Push' }
   const statusColor = { pending: 'text-yellow-500', sent: 'text-green-500', failed: 'text-red-500', cancelled: 'text-gray-400' }
 
   if (loading) return <div className="text-center py-16 text-gray-400 text-sm">Loading...</div>
@@ -30,7 +30,6 @@ export default function Reminders() {
 
       {reminders.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-4xl mb-3">🎉</p>
           <p className="font-semibold text-gray-700">No pending reminders</p>
           <p className="text-sm text-gray-400 mt-1">You're all caught up!</p>
         </div>
@@ -38,7 +37,7 @@ export default function Reminders() {
         <div className="space-y-2">
           {reminders.map(r => (
             <div key={r._id} className="bg-white rounded-xl border px-4 py-3 flex items-start gap-3 shadow-sm">
-              <span className="text-xl">{typeIcon[r.type] || '🔔'}</span>
+              <span className="text-xl">{typeIcon[r.type]}</span>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-gray-800">{r.subject}</p>
                 <p className="text-sm text-gray-500 mt-0.5">{r.message}</p>

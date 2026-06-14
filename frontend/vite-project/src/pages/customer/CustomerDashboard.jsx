@@ -86,11 +86,11 @@ export default function CustomerDashboard() {
         {/* Quick links */}
         <div className="grid grid-cols-5 gap-2 mb-4">
           {[
-            { to: '/customer/transactions', label: 'Txns', icon: '📋' },
-            { to: '/customer/payments', label: 'Pays', icon: '💰' },
-            { to: '/customer/statement', label: 'PDF', icon: '📄' },
-            { to: '/customer/reminders', label: 'Alerts', icon: '🔔' },
-            { to: '/customer/profile', label: 'Profile', icon: '👤' },
+            { to: '/customer/transactions', label: 'Txns' },
+            { to: '/customer/payments', label: 'Pays' },
+            { to: '/customer/statement', label: 'PDF' },
+            { to: '/customer/reminders', label: 'Alerts' },
+            { to: '/customer/profile', label: 'Profile' },
           ].map(({ to, label, icon }) => (
             <Link key={to} to={to}
               className="bg-white border border-orange-100 rounded-xl py-3 text-center hover:bg-orange-50 hover:border-orange-300 transition shadow-sm">
@@ -108,7 +108,7 @@ export default function CustomerDashboard() {
           </div>
           {recentTransactions.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-3xl mb-2">📋</p>
+              <p className="text-3xl mb-2">No transactions</p>
               <p className="text-gray-400 text-sm">No transactions yet</p>
             </div>
           ) : (
@@ -117,7 +117,7 @@ export default function CustomerDashboard() {
                 <div key={t._id} className="flex items-center justify-between p-3 rounded-xl hover:bg-orange-50 transition">
                   <div className="flex items-center gap-3">
                     <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm ${t.type === 'credit' ? 'bg-red-100' : 'bg-green-100'}`}>
-                      {t.type === 'credit' ? '📦' : '💵'}
+                      {t.type === 'credit' ? 'CR' : 'DR'}
                     </span>
                     <div>
                       <p className="text-sm font-semibold text-gray-800">{t.description || '—'}</p>
@@ -138,8 +138,8 @@ export default function CustomerDashboard() {
           <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mb-3">Shop Details</p>
           <div className="space-y-1.5 text-sm">
             <p className="font-black text-gray-800">{customerInfo.shop?.shopName}</p>
-            <p className="text-gray-500">👤 {customerInfo.shop?.ownerName}</p>
-            <p className="text-gray-500">📱 {customerInfo.shop?.mobile}</p>
+            <p className="text-gray-500"> {customerInfo.shop?.ownerName}</p>
+            <p className="text-gray-500"> {customerInfo.shop?.mobile}</p>
             {customerInfo.shop?.email && <p className="text-gray-500">✉️ {customerInfo.shop.email}</p>}
           </div>
         </div>

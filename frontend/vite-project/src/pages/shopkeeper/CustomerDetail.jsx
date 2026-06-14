@@ -87,9 +87,9 @@ export default function CustomerDetail() {
               </div>
               <div>
                 <h1 className="text-2xl font-black text-white">{customer.name}</h1>
-                <p className="text-sm text-zinc-400 mt-0.5 font-mono">📱 {customer.mobile}</p>
-                {customer.email && <p className="text-sm text-zinc-500">✉️ {customer.email}</p>}
-                {customer.address && <p className="text-sm text-zinc-500">📍 {customer.address}</p>}
+                <p className="text-sm text-zinc-400 mt-0.5 font-mono"> {customer.mobile}</p>
+                {customer.email && <p className="text-sm text-zinc-500"> {customer.email}</p>}
+                {customer.address && <p className="text-sm text-zinc-500"> {customer.address}</p>}
               </div>
             </div>
             <div className="flex gap-2 flex-wrap justify-end">
@@ -103,7 +103,7 @@ export default function CustomerDetail() {
               </Link>
               <Link to={`/shopkeeper/reminders?customer=${id}`}
                 className="bg-violet-500/10 hover:bg-violet-500 border border-violet-500/30 hover:border-violet-500 text-violet-400 hover:text-black text-xs font-bold px-3 py-2 rounded-xl transition">
-                🔔 Remind
+                 Remind
               </Link>
               <button onClick={handleDelete}
                 className="bg-transparent border border-zinc-700 text-zinc-500 hover:text-rose-400 hover:border-rose-500/40 text-xs font-bold px-3 py-2 rounded-xl transition">
@@ -134,7 +134,7 @@ export default function CustomerDetail() {
             {['transactions', 'payments'].map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)}
                 className={`flex-1 py-4 text-sm font-bold transition ${activeTab === tab ? 'text-amber-400 border-b-2 border-amber-500 bg-amber-500/5' : 'text-zinc-500 hover:text-zinc-300'}`}>
-                {tab === 'transactions' ? `📋 Transactions (${transactions.length})` : `💰 Payments (${payments.length})`}
+                {tab === 'transactions' ? ` Transactions (${transactions.length})` : ` Payments (${payments.length})`}
               </button>
             ))}
           </div>
@@ -143,7 +143,6 @@ export default function CustomerDetail() {
             {activeTab === 'transactions' && (
               transactions.length === 0 ? (
                 <div className="text-center py-14">
-                  <p className="text-4xl mb-3">📋</p>
                   <p className="text-zinc-500 text-sm">No transactions yet</p>
                 </div>
               ) : (
@@ -187,7 +186,6 @@ export default function CustomerDetail() {
             {activeTab === 'payments' && (
               payments.length === 0 ? (
                 <div className="text-center py-14">
-                  <p className="text-4xl mb-3">💰</p>
                   <p className="text-zinc-500 text-sm">No payments recorded</p>
                 </div>
               ) : (
@@ -196,7 +194,7 @@ export default function CustomerDetail() {
                     <div key={p._id} className="flex items-center justify-between p-4 rounded-xl border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-800/40 transition">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-lg">
-                          {p.paymentMethod === 'cash' ? '💵' : p.paymentMethod === 'upi' ? '📲' : '🏦'}
+                          {p.paymentMethod === 'cash' ? 'Cash' : p.paymentMethod === 'upi' ? 'UPI' : 'Bank'}
                         </div>
                         <div>
                           <p className="text-sm font-bold text-zinc-200 capitalize">{p.paymentMethod}</p>

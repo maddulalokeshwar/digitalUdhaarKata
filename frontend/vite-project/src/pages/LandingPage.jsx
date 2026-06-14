@@ -13,12 +13,12 @@ export default function LandingPage() {
       <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm">
         <button onClick={() => navigate('/login')}
           className="flex-1 bg-amber-500 hover:bg-amber-400 text-black font-black py-4 px-6 rounded-2xl shadow-lg shadow-amber-900/40 transition-all text-center">
-          <p className="text-2xl mb-1">🏪</p>
+          <p className="text-2xl mb-1"></p>
           <p className="text-sm">Shopkeeper</p>
         </button>
         <button onClick={() => navigate('/customer/login')}
           className="flex-1 bg-gradient-to-br from-orange-400 to-pink-500 hover:from-orange-300 hover:to-pink-400 text-white font-black py-4 px-6 rounded-2xl shadow-lg shadow-orange-900/30 transition-all text-center">
-          <p className="text-2xl mb-1">🧑</p>
+          <p className="text-2xl mb-1"></p>
           <p className="text-sm">Customer</p>
         </button>
       </div>

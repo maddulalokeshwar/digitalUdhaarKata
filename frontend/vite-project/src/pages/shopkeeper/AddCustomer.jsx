@@ -38,7 +38,6 @@ export default function AddCustomer() {
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-7">
           <div className="flex items-center gap-3 mb-7">
-            <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-xl">👤</div>
             <div>
               <h1 className="text-xl font-black text-white">Add New Customer</h1>
               <p className="text-xs text-zinc-500 mt-0.5">Create a credit account</p>

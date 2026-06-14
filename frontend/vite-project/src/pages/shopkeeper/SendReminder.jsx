@@ -168,7 +168,7 @@ export default function SendReminder() {
                   <button key={t} type="button"
                     onClick={() => setFormData(prev => ({ ...prev, type: t }))}
                     className={`flex-1 py-2 text-sm font-medium rounded-lg border transition ${formData.type === t ? 'bg-blue-500 text-white border-blue-500' : 'border-gray-300 text-gray-600'}`}>
-                    {t === 'push' ? '🔔 Push' : '📧 Email'}
+                    {t === 'push' ? ' Push' : ' Email'}
                   </button>
                 ))}
               </div>
@@ -211,7 +211,7 @@ export default function SendReminder() {
                   <button key={t} type="button"
                     onClick={() => setScheduleData(prev => ({ ...prev, type: t }))}
                     className={`flex-1 py-2 text-sm font-medium rounded-lg border transition ${scheduleData.type === t ? 'bg-blue-500 text-white border-blue-500' : 'border-gray-300 text-gray-600'}`}>
-                    {t === 'push' ? '🔔 Push' : '📧 Email'}
+                    {t === 'push' ? ' Push' : ' Email'}
                   </button>
                 ))}
               </div>

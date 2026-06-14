@@ -38,7 +38,7 @@ export default function OtpVerify() {
     <div className="min-h-screen bg-[#0f0d0b] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-3xl mx-auto mb-4">📱</div>
+          <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-3xl mx-auto mb-4"></div>
           <p className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-1">Udhaar Khata</p>
           <h1 className="text-3xl font-black text-white">OTP Login</h1>
           <p className="text-zinc-500 text-sm mt-1">{step === 1 ? 'Enter your mobile number' : 'Check your registered email'}</p>
@@ -62,7 +62,7 @@ export default function OtpVerify() {
           ) : (
             <form onSubmit={handleVerifyOtp} className="space-y-4">
               <div className="bg-amber-500/10 border border-amber-500/20 text-amber-400 px-4 py-3 rounded-xl text-sm font-medium">
-                📧 OTP sent to your registered email
+                 OTP sent to your registered email
               </div>
               <div>
                 <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1.5">Enter OTP</label>
