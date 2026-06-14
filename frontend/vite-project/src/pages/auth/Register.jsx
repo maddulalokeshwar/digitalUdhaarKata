@@ -6,210 +6,80 @@ import { useAuth } from '../../hooks/useAuth'
 export default function Register() {
   const navigate = useNavigate()
   const { setUser } = useAuth()
-
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    mobile: '',
-    shopName: '',
-    ownerName: '',
-    address: '',
-    gstNumber: ''
+    firstName: '', lastName: '', email: '', password: '',
+    mobile: '', shopName: '', ownerName: '', address: '', gstNumber: ''
   })
-
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-    setError('')
-  }
+  const handleChange = (e) => { setFormData({ ...formData, [e.target.name]: e.target.value }); setError('') }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setLoading(true)
-    setError('')
-
-    if (formData.mobile.length !== 10) {
-      setError('Mobile number must be 10 digits')
-      setLoading(false)
-      return
-    }
-
+    if (formData.mobile.length !== 10) { setError('Mobile must be 10 digits'); return }
+    setLoading(true); setError('')
     const res = await axiosInstance.post('/auth-api/register', formData)
-      .catch(err => {
-        setError(err.response?.data?.message || 'Registration failed')
-        setLoading(false)
-        return null
-      })
-
-    if (res) {
-      setUser(res.data.payload)
-      navigate('/shopkeeper/dashboard')
-    }
-
+      .catch(err => { setError(err.response?.data?.message || 'Registration failed'); setLoading(false); return null })
+    if (res) { setUser(res.data.payload); navigate('/shopkeeper/dashboard') }
     setLoading(false)
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
-      <div className="bg-white rounded-2xl shadow-md w-full max-w-lg p-8">
+  const inputCls = 'w-full bg-zinc-800 border border-zinc-700 focus:border-amber-500 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition'
 
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-800">Create Shop Account</h1>
-          <p className="text-gray-500 mt-1">Digital Udhaar Khata</p>
+  const fields = [
+    [{ label: 'First Name', name: 'firstName', type: 'text', placeholder: 'Loki', required: true },
+     { label: 'Last Name', name: 'lastName', type: 'text', placeholder: 'Kumar' }],
+    [{ label: 'Shop Name', name: 'shopName', type: 'text', placeholder: 'Loki General Store', required: true }],
+    [{ label: 'Owner Name', name: 'ownerName', type: 'text', placeholder: 'Loki Kumar', required: true }],
+    [{ label: 'Mobile', name: 'mobile', type: 'tel', placeholder: '9876543210', maxLength: 10, required: true },
+     { label: 'Email', name: 'email', type: 'email', placeholder: 'loki@email.com', required: true }],
+    [{ label: 'Password', name: 'password', type: 'password', placeholder: 'Min 6 characters', required: true }],
+    [{ label: 'Address', name: 'address', type: 'text', placeholder: 'Shop address' },
+     { label: 'GST Number', name: 'gstNumber', type: 'text', placeholder: 'Optional' }],
+  ]
+
+  return (
+    <div className="min-h-screen bg-[#0f0d0b] flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-lg">
+
+        <div className="text-center mb-7">
+          <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-3xl mx-auto mb-4">🏪</div>
+          <p className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-1">Udhaar Khata</p>
+          <h1 className="text-3xl font-black text-white">Create Shop Account</h1>
+          <p className="text-zinc-500 text-sm mt-1">Start managing your credit accounts</p>
         </div>
 
-        {/* Error */}
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-4 text-sm">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-
-          {/* Name Row */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder="Loki"
-                required
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-7">
+          {error && (
+            <div className="bg-rose-500/10 border border-rose-500/30 text-rose-400 px-4 py-3 rounded-xl mb-5 text-sm">
+              ⚠️ {error}
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder="Kumar"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
+          )}
 
-          {/* Shop Name */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Shop Name *</label>
-            <input
-              type="text"
-              name="shopName"
-              value={formData.shopName}
-              onChange={handleChange}
-              placeholder="Loki General Store"
-              required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {fields.map((row, i) => (
+              <div key={i} className={row.length === 2 ? 'grid grid-cols-2 gap-3' : ''}>
+                {row.map(({ label, ...props }) => (
+                  <div key={props.name}>
+                    <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1.5">{label}</label>
+                    <input {...props} value={formData[props.name]} onChange={handleChange} className={inputCls} />
+                  </div>
+                ))}
+              </div>
+            ))}
 
-          {/* Owner Name */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Owner Name *</label>
-            <input
-              type="text"
-              name="ownerName"
-              value={formData.ownerName}
-              onChange={handleChange}
-              placeholder="Loki Kumar"
-              required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+            <button type="submit" disabled={loading}
+              className="w-full bg-amber-500 hover:bg-amber-400 disabled:bg-amber-500/40 text-black font-black py-3 rounded-xl transition shadow-lg shadow-amber-900/30 mt-2">
+              {loading ? 'Creating Account...' : 'Create Account →'}
+            </button>
+          </form>
 
-          {/* Mobile */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Mobile Number *</label>
-            <input
-              type="tel"
-              name="mobile"
-              value={formData.mobile}
-              onChange={handleChange}
-              placeholder="9876543210"
-              maxLength={10}
-              required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Email */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="loki@gmail.com"
-              required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Password */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password *</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Min 6 characters"
-              minLength={6}
-              required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Address */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              placeholder="Shop address"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* GST Number */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">GST Number (Optional)</label>
-            <input
-              type="text"
-              name="gstNumber"
-              value={formData.gstNumber}
-              onChange={handleChange}
-              placeholder="18AABCT1234H1Z0"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition disabled:opacity-60 mt-2"
-          >
-            {loading ? 'Creating Account...' : 'Create Account'}
-          </button>
-        </form>
-
-        <p className="mt-6 text-center text-sm text-gray-500">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
-        </p>
+          <p className="mt-5 text-center text-sm text-zinc-600">
+            Already have an account?{' '}
+            <Link to="/login" className="text-amber-500 hover:text-amber-400 font-medium transition">Login</Link>
+          </p>
+        </div>
 
       </div>
     </div>
