@@ -1,0 +1,22 @@
+import { formatDate } from '../../utils/formatDate'
+import { formatCurrency } from '../../utils/formatCurrency'
+
+export default function PaymentCard({ payment: p }) {
+  const methodLabel = { cash: '💵 Cash', upi: '📲 UPI', bank: '🏦 Bank' }
+  return (
+    <div className="bg-white rounded-xl border px-4 py-3 flex items-center justify-between shadow-sm">
+      <div>
+        <p className="text-sm font-medium text-gray-800">{methodLabel[p.paymentMethod] || p.paymentMethod}</p>
+        <p className="text-xs text-gray-400 mt-0.5">{formatDate(p.paymentDate)}</p>
+        {p.referenceNumber && <p className="text-xs text-gray-400">Ref: {p.referenceNumber}</p>}
+        {p.note && <p className="text-xs text-gray-400 italic">{p.note}</p>}
+      </div>
+      <div className="text-right">
+        <p className="text-sm font-bold text-green-500">{formatCurrency(p.amount)}</p>
+        <span className={`text-xs font-medium ${p.status === 'completed' ? 'text-green-500' : p.status === 'failed' ? 'text-red-500' : 'text-yellow-500'}`}>
+          {p.status}
+        </span>
+      </div>
+    </div>
+  )
+}

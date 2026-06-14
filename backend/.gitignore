@@ -1,0 +1,11 @@
+node_modules/
+.env
+auth.http
+customer.http
+customerAuth.http
+dashboard.http
+payment.http
+reminder.http
+shopkeeperdashboard.http
+trail.http
+transaction.http
